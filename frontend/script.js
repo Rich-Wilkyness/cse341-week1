@@ -1,9 +1,17 @@
 // helpful link for converting image to base64: https://elmah.io/tools/base64-image-encoder/
 async function apiFetch(url) {
+  try {
     const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Request failed with status: ${response.status}`);
+    }
     const data = await response.json();
+    console.log(data);
     return data;
+  } catch (error) {
+    console.error('API request failed:', error);
   }
+}
   
   const getData = async () => {
     const data = await apiFetch('http://localhost:8080/professional');
